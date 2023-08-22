@@ -1,20 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_app/widgets/text%20field.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:notes_app/Add%20Note_Cubit/add_note_cubit.dart';
 
-import 'CustomeButton.dart';
-
-class AddNote extends StatelessWidget {
-  const AddNote({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-        padding:
-            const EdgeInsets.only(top: 15.0, left: 10, right: 10, bottom: 20),
-        child: AddNoteForm());
-  }
-}
+import 'AddNoteForm.dart';
 
 class AddNoteForm extends StatefulWidget {
   const AddNoteForm({super.key});
@@ -24,43 +14,26 @@ class AddNoteForm extends StatefulWidget {
 }
 
 class _AddNoteFormState extends State<AddNoteForm> {
-  String? title, content;
-   GlobalKey<FormState> formkey=GlobalKey();
   @override
   Widget build(BuildContext context) {
-    return Form(key: formkey,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            TextFeild(
-              onsave: (value) {
-                title = value;
-              },
-              hint: 'Title',
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            TextFeild(
-              onsave: (value) {
-                content = value;
-              },
-              hint: 'Content',
-              maxline: 5,
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            CustomeButton(onTap: (){
-              if(formkey.currentState!.validate())
-                {
-                  formkey.currentState!.save();
-                }
-              print('=========================$title');
-
-            },),
-          ],
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: BlocConsumer<AddNoteCubit, AddNoteState>(
+          listener: (context, state) {
+            if (state is AddNoteSuccess) {
+              Navigator.of(context).pop();
+            }
+            if (state is AddNoteFailuer) {
+              print('Error ${state.errorMessage}');
+            }
+          },
+          builder: (context, state) {
+            return ModalProgressHUD(
+                inAsyncCall: state is AddNoteLoading ? true : false,
+                child: Forma());
+          },
         ),
       ),
     );

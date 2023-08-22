@@ -24,7 +24,7 @@ class _Notes_ViewState extends State<Notes_View> {
               )),
               context: context,
               builder: (context) {
-                return AddNote();
+                return AddNoteForm();
               });
         },
         child: Icon(
