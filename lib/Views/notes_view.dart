@@ -24,8 +24,11 @@ class _Notes_ViewState extends State<Notes_View> {
               )),
               context: context,
               builder: (context) {
-                return AddNoteForm();
-              });
+                return  Padding(
+                  padding:  EdgeInsets.only(left: 8.0,right: 8,top: 10,bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: AddNoteForm(),
+                );
+              },isScrollControlled: true);
         },
         child: Icon(
           Icons.add,
