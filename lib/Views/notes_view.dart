@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/Add%20Note_Cubit/notes_cubit.dart';
 
 import '../widgets/AddNote.dart';
 import '../widgets/notes view body.dart';
@@ -13,29 +15,35 @@ class Notes_View extends StatefulWidget {
 class _Notes_ViewState extends State<Notes_View> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20),
-                topLeft: Radius.circular(20),
-              )),
-              context: context,
-              builder: (context) {
-                return  Padding(
-                  padding:  EdgeInsets.only(left: 8.0,right: 8,top: 10,bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: AddNoteForm(),
-                );
-              },isScrollControlled: true);
-        },
-        child: Icon(
-          Icons.add,
-          size: 25,
+    return Scaffold(backgroundColor: Colors.black,
+        floatingActionButton: FloatingActionButton(backgroundColor: Colors.teal,
+          onPressed: () {
+            showModalBottomSheet(//backgroundColor: Colors.blue.withOpacity(0.5),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(20),
+                )),
+                context: context,
+                builder: (context) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                        left: 8.0,
+                        right: 8,
+                        top: 10,
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: AddNoteForm(),
+                  );
+                },
+                isScrollControlled: true);
+          },
+          child: Icon(
+            Icons.add,
+            size: 25,
+          ),
         ),
-      ),
-      body: SafeArea(child: NotesViewBody()),
+        body: SafeArea(child: NotesViewBody()),
+
     );
   }
 }

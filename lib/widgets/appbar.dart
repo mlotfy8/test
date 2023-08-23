@@ -4,12 +4,12 @@ import 'package:notes_app/widgets/search%20icon.dart';
 
 class CustomeAppBar extends StatelessWidget {
   const CustomeAppBar(
-      {super.key, required this.title, required this.icon, required this.w});
+      {super.key, required this.title, required this.icon, required this.w,  this.onpress});
 
   final String title;
   final IconData icon;
   final double w;
-
+final void Function()?onpress;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -28,8 +28,8 @@ class CustomeAppBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               color: Colors.white.withOpacity(0.05)),
           child: IconButton(
-            icon: Icon(icon,size: 25),
-            onPressed: (){},
+            icon: Icon(icon,size: 25,color: Colors.white,),
+            onPressed:onpress,
           ),
         )
       ],

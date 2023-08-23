@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/Add%20Note_Cubit/add_note_cubit.dart';
 import 'package:notes_app/models/Note%20Model.dart';
 import 'package:notes_app/widgets/text%20field.dart';
-
+import 'package:jiffy/jiffy.dart';
+import 'ColorsList.dart';
 import 'CustomeButton.dart';
 
 class Forma extends StatefulWidget {
@@ -45,9 +46,16 @@ class _FormaState extends State<Forma> {
             SizedBox(
               height: 30,
             ),
+            ColorList(),
+            SizedBox(
+              height: 30,
+            ),
             BlocBuilder<AddNoteCubit, AddNoteState>(
               builder: (context, state) {
                 return CustomeButton(
+                  font: 20,
+                  text: 'Add',
+                  w: MediaQuery.of(context).size.width,
                   isloading: state is AddNoteLoading ? true : false,
                   onTap: () {
                     if (formkey.currentState!.validate()) {
@@ -55,7 +63,7 @@ class _FormaState extends State<Forma> {
                       var noteModel = Note_Model(
                           title: title!,
                           content: content!,
-                          date: DateTime.now().toString(),
+                          date: Jiffy.now().yMMMEd,
                           color: Colors.blue.value);
                       BlocProvider.of<AddNoteCubit>(context)
                           .addNotes(noteModel);
@@ -65,7 +73,9 @@ class _FormaState extends State<Forma> {
                 );
               },
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
           ],
         ),
       ),

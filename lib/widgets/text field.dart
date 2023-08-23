@@ -6,18 +6,18 @@ class TextFeild extends StatelessWidget {
     super.key,
     required this.hint,
     this.maxline = 1,
-    this.onsave,
+    this.onsave,this.onchange
   });
 
   final String hint;
   final int maxline;
   void Function(String?)? onsave;
-
+  void Function(String)?onchange;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       maxLines: maxline,
-      onSaved: onsave,
+      onSaved: onsave,onChanged:onchange ,
       cursorColor: Color(0xff62FCD7),
       decoration: InputDecoration(
         focusedBorder: buildOutlineInputBorder(),
@@ -37,6 +37,6 @@ class TextFeild extends StatelessWidget {
   OutlineInputBorder buildOutlineInputBorder() {
     return OutlineInputBorder(
         borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide(color: Color(0xff62FCD7)));
+        borderSide: BorderSide(color: Colors.blueGrey));
   }
 }
